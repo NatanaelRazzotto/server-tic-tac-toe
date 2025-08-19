@@ -1,0 +1,43 @@
+# Build Folders
+bin/
+obj/
+
+# Visual Studio / Rider / VS Code files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+packages/
+# NuGet cache folders
+.nuget/
+
+# DotNet Core / SDK
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.dll
+*.pdb
+*.exe
+*.cache
+*.log
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store
+
+# Certificates
+*.pfx
+*.cer
+
+# Publish output
+publish/
+
+# Docker (se houver)
+docker-compose.override.yml
