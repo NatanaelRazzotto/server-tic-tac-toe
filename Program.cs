@@ -1,6 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using server_tic_tac_toe.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Adiciona a connection string diretamente na configuração
+builder.Configuration.AddEnvironmentVariables();
+
+var connectionString = 
+    $"Host={builder.Configuration["POSTGRES_DB_HOST"]};" +
+    $"Port={builder.Configuration["POSTGRES_DB_PORT"]};" +
+    $"Database={builder.Configuration["POSTGRES_DB_NAME"]};" +
+    $"Username={builder.Configuration["POSTGRES_DB_USER"]};" +
+    $"Password={builder.Configuration["POSTGRES_DB_PASSWORD"]}";
+
 // Add services to the container.
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
