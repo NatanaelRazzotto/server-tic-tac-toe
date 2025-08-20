@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using server_tic_tac_toe.Data;
+using DotNetEnv;
+using server_tic_tac_toe.Infrastructure.Persistence;
+
+// Carrega o arquivo .env
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 

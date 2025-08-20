@@ -1,10 +1,10 @@
-namespace server_tic_tac_toe.Models
+namespace server_tic_tac_toe.Domain.Entities
 {
     public class Move
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
 
-        public Match AssociatedMatchId { get; private set; }
+        public Guid AssociatedMatchId { get; private set; }
         public Match AssociatedMatch { get; private set; }
 
         public Guid ResponsiblePlayerId { get; private set; }
@@ -23,7 +23,14 @@ namespace server_tic_tac_toe.Models
 
         public Move(Match associatedMatch, Player responsiblePlayer, int positionColumn, int positionRow, char symbol, DateTime movementTime)
         {
-            
+            AssociatedMatch = associatedMatch ?? throw new ArgumentNullException(nameof(associatedMatch));
+            ResponsiblePlayer = responsiblePlayer ?? throw new ArgumentNullException(nameof(responsiblePlayer));
+            AssociatedMatchId = associatedMatch.Id;
+            ResponsiblePlayerId = responsiblePlayer.Id;
+            PositionColumn = positionColumn;
+            PositionRow = positionRow;
+            Symbol = symbol;
+            MovementTime = movementTime;
         }
 
 

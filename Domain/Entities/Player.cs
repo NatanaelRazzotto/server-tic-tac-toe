@@ -1,4 +1,4 @@
-namespace server_tic_tac_toe.Models
+namespace server_tic_tac_toe.Domain.Entities
 {
     public class Player
     {
@@ -7,6 +7,9 @@ namespace server_tic_tac_toe.Models
 
         public ICollection<Match> MatchesAsFirstPlayer { get; set; } = new List<Match>();
         public ICollection<Match> MatchesAsSecondPlayer { get; set; } = new List<Match>();
+
+        public ICollection<Move> PlayerMovements { get; set; } = new List<Move>();
+
 
         // Construtor para o EF
         private Player() { }

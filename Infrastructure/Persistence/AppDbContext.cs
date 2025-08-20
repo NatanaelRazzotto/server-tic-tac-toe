@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using server_tic_tac_toe.Models;
+using server_tic_tac_toe.Domain.Entities;
 
-namespace server_tic_tac_toe.Data
+namespace server_tic_tac_toe.Infrastructure.Persistence
 {
     public class AppDbContext : DbContext
     {
@@ -22,7 +22,7 @@ namespace server_tic_tac_toe.Data
             modelBuilder.Entity<Match>()
             .HasOne(match => match.FirstPlayer)
             .WithMany(player => player.MatchesAsFirstPlayer)
-            .HasForeignKey(match => match.FirstPlayerID)
+            .HasForeignKey(match => match.FirstPlayerId)
             .OnDelete(DeleteBehavior.Restrict);
 
             // Relacionamento Match → Player (SecondPlayer)
@@ -37,16 +37,16 @@ namespace server_tic_tac_toe.Data
 
             modelBuilder.Entity<Move>()
             .HasOne(move => move.AssociatedMatch)
-            .WithMany()
+            .WithMany(math => math.MatchMovements)
             .HasForeignKey(move => move.AssociatedMatchId)
             .OnDelete(DeleteBehavior.Restrict);
             
             // Relacionamento Move → Player 
 
             modelBuilder.Entity<Move>()
-            .HasOne(move => move.AssociatedMatch)
-            .WithMany()
-            .HasForeignKey(move => move.AssociatedMatchId)
+            .HasOne(move => move.ResponsiblePlayer)
+            .WithMany(player => player.PlayerMovements)
+            .HasForeignKey(move => move.ResponsiblePlayerId)
             .OnDelete(DeleteBehavior.Restrict);
 
 
