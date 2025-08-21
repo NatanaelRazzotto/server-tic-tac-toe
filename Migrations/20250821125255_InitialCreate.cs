@@ -24,7 +24,7 @@ namespace server_tic_tac_toe.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Matches",
+                name: "GameMatches",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -35,15 +35,15 @@ namespace server_tic_tac_toe.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Matches", x => x.Id);
+                    table.PrimaryKey("PK_GameMatches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Matches_Players_FirstPlayerId",
+                        name: "FK_GameMatches_Players_FirstPlayerId",
                         column: x => x.FirstPlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Matches_Players_SecondPlayerId",
+                        name: "FK_GameMatches_Players_SecondPlayerId",
                         column: x => x.SecondPlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
@@ -66,9 +66,9 @@ namespace server_tic_tac_toe.Migrations
                 {
                     table.PrimaryKey("PK_Moves", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Moves_Matches_AssociatedMatchId",
+                        name: "FK_Moves_GameMatches_AssociatedMatchId",
                         column: x => x.AssociatedMatchId,
-                        principalTable: "Matches",
+                        principalTable: "GameMatches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -80,13 +80,13 @@ namespace server_tic_tac_toe.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matches_FirstPlayerId",
-                table: "Matches",
+                name: "IX_GameMatches_FirstPlayerId",
+                table: "GameMatches",
                 column: "FirstPlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matches_SecondPlayerId",
-                table: "Matches",
+                name: "IX_GameMatches_SecondPlayerId",
+                table: "GameMatches",
                 column: "SecondPlayerId");
 
             migrationBuilder.CreateIndex(
@@ -107,7 +107,7 @@ namespace server_tic_tac_toe.Migrations
                 name: "Moves");
 
             migrationBuilder.DropTable(
-                name: "Matches");
+                name: "GameMatches");
 
             migrationBuilder.DropTable(
                 name: "Players");

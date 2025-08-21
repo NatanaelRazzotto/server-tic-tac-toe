@@ -22,7 +22,7 @@ namespace server_tic_tac_toe.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.Match", b =>
+            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.GameMatch", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace server_tic_tac_toe.Migrations
 
                     b.HasIndex("SecondPlayerId");
 
-                    b.ToTable("Matches");
+                    b.ToTable("GameMatches");
                 });
 
             modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.Move", b =>
@@ -97,7 +97,7 @@ namespace server_tic_tac_toe.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.Match", b =>
+            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.GameMatch", b =>
                 {
                     b.HasOne("server_tic_tac_toe.Domain.Entities.Player", "FirstPlayer")
                         .WithMany("MatchesAsFirstPlayer")
@@ -118,7 +118,7 @@ namespace server_tic_tac_toe.Migrations
 
             modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.Move", b =>
                 {
-                    b.HasOne("server_tic_tac_toe.Domain.Entities.Match", "AssociatedMatch")
+                    b.HasOne("server_tic_tac_toe.Domain.Entities.GameMatch", "AssociatedMatch")
                         .WithMany("MatchMovements")
                         .HasForeignKey("AssociatedMatchId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -135,7 +135,7 @@ namespace server_tic_tac_toe.Migrations
                     b.Navigation("ResponsiblePlayer");
                 });
 
-            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.Match", b =>
+            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.GameMatch", b =>
                 {
                     b.Navigation("MatchMovements");
                 });

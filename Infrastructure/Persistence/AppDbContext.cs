@@ -6,7 +6,7 @@ namespace server_tic_tac_toe.Infrastructure.Persistence
     public class AppDbContext : DbContext
     {
         public DbSet<Player> Players => Set<Player>();
-        public DbSet<Match> Matches => Set<Match>();
+        public DbSet<GameMatch> GameMatches => Set<GameMatch>();
         public DbSet<Move> Moves => Set<Move>();
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -19,14 +19,14 @@ namespace server_tic_tac_toe.Infrastructure.Persistence
 
             // Match → Player primario
 
-            modelBuilder.Entity<Match>()
+            modelBuilder.Entity<GameMatch>()
             .HasOne(match => match.FirstPlayer)
             .WithMany(player => player.MatchesAsFirstPlayer)
             .HasForeignKey(match => match.FirstPlayerId)
             .OnDelete(DeleteBehavior.Restrict);
 
             // Relacionamento Match → Player (SecondPlayer)
-            modelBuilder.Entity<Match>()
+            modelBuilder.Entity<GameMatch>()
            .HasOne(match => match.SecondPlayer)
            .WithMany(player => player.MatchesAsSecondPlayer)
            .HasForeignKey(match => match.SecondPlayerId)

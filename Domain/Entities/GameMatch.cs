@@ -2,7 +2,7 @@ using server_tic_tac_toe.Domain.Enums;
 
 namespace server_tic_tac_toe.Domain.Entities
 {
-    public class Match
+    public class GameMatch
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
 
@@ -20,12 +20,12 @@ namespace server_tic_tac_toe.Domain.Entities
 
         public ICollection<Move> MatchMovements { get; set; } = new List<Move>();
         
-        private Match()
+        private GameMatch()
         {
             
         }
 
-        private Match(Player firstPlayer, Player secondPlayer)
+        private GameMatch(Player firstPlayer, Player secondPlayer)
         {
             FirstPlayer = firstPlayer ?? throw new ArgumentNullException(nameof(firstPlayer));
             SecondPlayer = secondPlayer ?? throw new ArgumentNullException(nameof(secondPlayer));

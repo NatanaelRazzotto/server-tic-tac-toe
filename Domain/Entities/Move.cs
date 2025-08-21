@@ -5,7 +5,7 @@ namespace server_tic_tac_toe.Domain.Entities
         public Guid Id { get; private set; } = Guid.NewGuid();
 
         public Guid AssociatedMatchId { get; private set; }
-        public Match AssociatedMatch { get; private set; }
+        public GameMatch AssociatedMatch { get; private set; }
 
         public Guid ResponsiblePlayerId { get; private set; }
         public Player ResponsiblePlayer { get; private set; }
@@ -21,7 +21,7 @@ namespace server_tic_tac_toe.Domain.Entities
 
         private Move() { }
 
-        public Move(Match associatedMatch, Player responsiblePlayer, int positionColumn, int positionRow, char symbol, DateTime movementTime)
+        public Move(GameMatch associatedMatch, Player responsiblePlayer, int positionColumn, int positionRow, char symbol, DateTime movementTime)
         {
             AssociatedMatch = associatedMatch ?? throw new ArgumentNullException(nameof(associatedMatch));
             ResponsiblePlayer = responsiblePlayer ?? throw new ArgumentNullException(nameof(responsiblePlayer));

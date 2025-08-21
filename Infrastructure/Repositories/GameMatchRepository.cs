@@ -8,13 +8,15 @@ using System.Collections.Generic;
 
 namespace server_tic_tac_toe.Infrastructure.Repositories
 {
-    public class MatchRepository : Repository<Match>
+    public class GameMatchRepository : Repository<GameMatch>
     {
 
-        public MatchRepository(AppDbContext context) : base(context)
+        public GameMatchRepository(AppDbContext context) : base(context)
         {
 
         }
+
+        
     }
 
 

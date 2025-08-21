@@ -5,8 +5,8 @@ namespace server_tic_tac_toe.Domain.Entities
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
 
-        public ICollection<Match> MatchesAsFirstPlayer { get; set; } = new List<Match>();
-        public ICollection<Match> MatchesAsSecondPlayer { get; set; } = new List<Match>();
+        public ICollection<GameMatch> MatchesAsFirstPlayer { get; set; } = new List<GameMatch>();
+        public ICollection<GameMatch> MatchesAsSecondPlayer { get; set; } = new List<GameMatch>();
 
         public ICollection<Move> PlayerMovements { get; set; } = new List<Move>();
 
