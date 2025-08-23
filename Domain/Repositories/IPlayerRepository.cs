@@ -4,6 +4,6 @@ namespace server_tic_tac_toe.Domain.Repositories
 {
     public interface IPlayerRepository
     {
-        Task<Player?> GetByNameAsync(string name);
+        Task<User?> GetByNameAsync(string name);
     }
 }

@@ -7,8 +7,8 @@ namespace server_tic_tac_toe.Domain.Entities
         public Guid Id { get; private set; } = Guid.NewGuid();
 
         // Referencia aos modelos
-        public Player FirstPlayer { get; private set; }
-        public Player SecondPlayer { get; private set; }
+        public User FirstPlayer { get; private set; }
+        public User SecondPlayer { get; private set; }
 
         // Referencia aos ids dos modelos
         public Guid FirstPlayerId { get; private set; }
@@ -25,7 +25,7 @@ namespace server_tic_tac_toe.Domain.Entities
             
         }
 
-        private GameMatch(Player firstPlayer, Player secondPlayer)
+        private GameMatch(User firstPlayer, User secondPlayer)
         {
             FirstPlayer = firstPlayer ?? throw new ArgumentNullException(nameof(firstPlayer));
             SecondPlayer = secondPlayer ?? throw new ArgumentNullException(nameof(secondPlayer));

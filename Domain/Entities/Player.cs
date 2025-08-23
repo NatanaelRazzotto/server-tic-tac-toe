@@ -1,6 +1,6 @@
 namespace server_tic_tac_toe.Domain.Entities
 {
-    public class Player
+    public class User
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
@@ -12,10 +12,10 @@ namespace server_tic_tac_toe.Domain.Entities
 
 
         // Construtor para o EF
-        private Player() { }
+        private User() { }
 
         // Construtor de domínio
-        public Player(string name)
+        public User(string name)
         {
             Name = name;
         }

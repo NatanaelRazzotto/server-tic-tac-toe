@@ -9,4 +9,17 @@ namespace server_tic_tac_toe.Controllers;
 public class GameMatchController : ControllerBase
 {
     private readonly CreateGameMatch _createGameMatch;
+
+    public GameMatchController(CreateGameMatch createMatch)
+    {
+        _createGameMatch = createMatch;
+    }
+
+    [HttpPost("create")]
+    public async Task<IActionResult> Create([FromBody] string player1)
+    {
+        var match = await _createGameMatch.ExecuteAsync(player1);
+        return Ok(match);
+    }
+    
 }

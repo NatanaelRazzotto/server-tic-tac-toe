@@ -8,7 +8,7 @@ namespace server_tic_tac_toe.Domain.Entities
         public GameMatch AssociatedMatch { get; private set; }
 
         public Guid ResponsiblePlayerId { get; private set; }
-        public Player ResponsiblePlayer { get; private set; }
+        public User ResponsiblePlayer { get; private set; }
 
         public int PositionColumn { get; private set; }
 
@@ -21,7 +21,7 @@ namespace server_tic_tac_toe.Domain.Entities
 
         private Move() { }
 
-        public Move(GameMatch associatedMatch, Player responsiblePlayer, int positionColumn, int positionRow, char symbol, DateTime movementTime)
+        public Move(GameMatch associatedMatch, User responsiblePlayer, int positionColumn, int positionRow, char symbol, DateTime movementTime)
         {
             AssociatedMatch = associatedMatch ?? throw new ArgumentNullException(nameof(associatedMatch));
             ResponsiblePlayer = responsiblePlayer ?? throw new ArgumentNullException(nameof(responsiblePlayer));

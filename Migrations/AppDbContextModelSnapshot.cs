@@ -82,7 +82,7 @@ namespace server_tic_tac_toe.Migrations
                     b.ToTable("Moves");
                 });
 
-            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.Player", b =>
+            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,13 +99,13 @@ namespace server_tic_tac_toe.Migrations
 
             modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.GameMatch", b =>
                 {
-                    b.HasOne("server_tic_tac_toe.Domain.Entities.Player", "FirstPlayer")
+                    b.HasOne("server_tic_tac_toe.Domain.Entities.User", "FirstPlayer")
                         .WithMany("MatchesAsFirstPlayer")
                         .HasForeignKey("FirstPlayerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("server_tic_tac_toe.Domain.Entities.Player", "SecondPlayer")
+                    b.HasOne("server_tic_tac_toe.Domain.Entities.User", "SecondPlayer")
                         .WithMany("MatchesAsSecondPlayer")
                         .HasForeignKey("SecondPlayerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -124,7 +124,7 @@ namespace server_tic_tac_toe.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("server_tic_tac_toe.Domain.Entities.Player", "ResponsiblePlayer")
+                    b.HasOne("server_tic_tac_toe.Domain.Entities.User", "ResponsiblePlayer")
                         .WithMany("PlayerMovements")
                         .HasForeignKey("ResponsiblePlayerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -140,7 +140,7 @@ namespace server_tic_tac_toe.Migrations
                     b.Navigation("MatchMovements");
                 });
 
-            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.Player", b =>
+            modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.User", b =>
                 {
                     b.Navigation("MatchesAsFirstPlayer");
 

@@ -5,7 +5,7 @@ namespace server_tic_tac_toe.Infrastructure.Persistence
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Player> Players => Set<Player>();
+        public DbSet<User> Players => Set<User>();
         public DbSet<GameMatch> GameMatches => Set<GameMatch>();
         public DbSet<Move> Moves => Set<Move>();
         public AppDbContext(DbContextOptions<AppDbContext> options)
