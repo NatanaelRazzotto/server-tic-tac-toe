@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace server_tic_tac_toe.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitializeEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Players",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -20,7 +20,7 @@ namespace server_tic_tac_toe.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,15 +37,15 @@ namespace server_tic_tac_toe.Migrations
                 {
                     table.PrimaryKey("PK_GameMatches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GameMatches_Players_FirstPlayerId",
+                        name: "FK_GameMatches_Users_FirstPlayerId",
                         column: x => x.FirstPlayerId,
-                        principalTable: "Players",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_GameMatches_Players_SecondPlayerId",
+                        name: "FK_GameMatches_Users_SecondPlayerId",
                         column: x => x.SecondPlayerId,
-                        principalTable: "Players",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -72,9 +72,9 @@ namespace server_tic_tac_toe.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Moves_Players_ResponsiblePlayerId",
+                        name: "FK_Moves_Users_ResponsiblePlayerId",
                         column: x => x.ResponsiblePlayerId,
-                        principalTable: "Players",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -110,7 +110,7 @@ namespace server_tic_tac_toe.Migrations
                 name: "GameMatches");
 
             migrationBuilder.DropTable(
-                name: "Players");
+                name: "Users");
         }
     }
 }

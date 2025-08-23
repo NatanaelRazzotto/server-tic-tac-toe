@@ -94,7 +94,7 @@ namespace server_tic_tac_toe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Players");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.GameMatch", b =>

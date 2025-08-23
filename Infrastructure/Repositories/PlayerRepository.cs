@@ -17,7 +17,7 @@ namespace server_tic_tac_toe.Infrastructure.Repositories
         
         public async Task<User?> GetByNameAsync(string name)
         {
-            return await _context.Players.FirstOrDefaultAsync(p => p.Name == name);
+            return await _context.Users.FirstOrDefaultAsync(p => p.Name == name);
         }
     }
 }

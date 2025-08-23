@@ -12,8 +12,8 @@ using server_tic_tac_toe.Infrastructure.Persistence;
 namespace server_tic_tac_toe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250823182628_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250823183249_InitializeEntities")]
+    partial class InitializeEntities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,7 +97,7 @@ namespace server_tic_tac_toe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Players");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("server_tic_tac_toe.Domain.Entities.GameMatch", b =>
