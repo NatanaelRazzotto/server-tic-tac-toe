@@ -38,7 +38,7 @@ namespace server_tic_tac_toe.Domain.Entities
             Open = DateTime.UtcNow;   // inicializa abertura
             Closing = null;
         }
-        
+
         public void CloseGame(MatchStatus finalStatus)
         {
             if (Status != MatchStatus.InProgress)
@@ -47,6 +47,17 @@ namespace server_tic_tac_toe.Domain.Entities
             Status = finalStatus;
             Closing = DateTime.UtcNow;
         }
+        
+        public bool IsPlayerInMatch(User player)
+        {
+            return FirstPlayer.Id == player.Id || SecondPlayer.Id == player.Id;
+        }
+
+        public bool HasMoveAt(int row, int column)
+        {
+            return MatchMovements.Any(m => m.PositionRow == row && m.PositionColumn == column);
+        }
+
         
 
 

@@ -1,3 +1,5 @@
+using server_tic_tac_toe.Domain.Enums;
+
 namespace server_tic_tac_toe.Domain.Entities
 {
     public class Move
@@ -14,14 +16,14 @@ namespace server_tic_tac_toe.Domain.Entities
 
         public int PositionRow { get; private set; }
 
-        public char Symbol { get; private set; }
+        public TypePlay TypeOfPlay { get; private set; } = TypePlay.NoneType;
 
         public DateTime MovementTime { get; private set; }
 
 
         private Move() { }
 
-        public Move(GameMatch associatedMatch, User responsiblePlayer, int positionColumn, int positionRow, char symbol, DateTime movementTime)
+        public Move(GameMatch associatedMatch, User responsiblePlayer, int positionColumn, int positionRow, TypePlay typeOfPlay)
         {
             AssociatedMatch = associatedMatch ?? throw new ArgumentNullException(nameof(associatedMatch));
             ResponsiblePlayer = responsiblePlayer ?? throw new ArgumentNullException(nameof(responsiblePlayer));
@@ -29,8 +31,8 @@ namespace server_tic_tac_toe.Domain.Entities
             ResponsiblePlayerId = responsiblePlayer.Id;
             PositionColumn = positionColumn;
             PositionRow = positionRow;
-            Symbol = symbol;
-            MovementTime = movementTime;
+            TypeOfPlay = typeOfPlay;
+            MovementTime = DateTime.UtcNow;    // = movementTime;
         }
 
 

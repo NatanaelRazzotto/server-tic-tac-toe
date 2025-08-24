@@ -6,6 +6,7 @@ using server_tic_tac_toe.Infrastructure.Repositories;
 using server_tic_tac_toe.Application.Services;
 using server_tic_tac_toe.Application.UseCases;
 using System.Text.Json.Serialization;
+using server_tic_tac_toe.Domain.Entities;
 
 // Carrega o arquivo .env
 Env.Load();
@@ -40,15 +41,19 @@ builder.Services.AddCors(options =>
 // ===== Aqui registramos os repositórios e serviços =====
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGameMatchRepository, GameMatchRepository>();
+builder.Services.AddScoped<IRepository<Move>, MoveRepository>();
 
 
 
 //service
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<GameMatchService>();
+builder.Services.AddScoped<MoveService>();
+
 
 // UseCases
 builder.Services.AddScoped<CreateInitialGameMatch>();
+builder.Services.AddScoped<CreateMoveForGameMatch>();
 builder.Services.AddScoped<CreateUser>();
 builder.Services.AddScoped<UpdateUser>();
 

@@ -15,11 +15,19 @@ namespace server_tic_tac_toe.Application.Services
 
         }
 
+        
+        public async Task<GameMatch> GetByIdAsync(Guid id)
+        {
+
+            var gameMatch = await _gameMatchRepository.GetByIdAsync(id);
+            return gameMatch;
+        }
+
         public async Task<IEnumerable<GameMatch>> GetAllAsync()
         {
 
-            var users = await _gameMatchRepository.GetAllAsync();
-            return users;
+            var gameMatches = await _gameMatchRepository.GetAllAsync();
+            return gameMatches;
         }
 
         public async Task<Guid> CreateAsync(User firstPlayer, User secondPlayer)

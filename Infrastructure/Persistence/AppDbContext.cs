@@ -46,10 +46,12 @@ namespace server_tic_tac_toe.Infrastructure.Persistence
             .IsRequired()
            .OnDelete(DeleteBehavior.Restrict);
 
-           // Converte MatchStatus para string no banco
+            // Converte MatchStatus para string no banco
             modelBuilder.Entity<GameMatch>()
                 .Property(m => m.Status)
                 .HasConversion(new EnumToStringConverter<MatchStatus>());
+
+
 
 
             // Relacionamento Move → Match 
@@ -58,6 +60,7 @@ namespace server_tic_tac_toe.Infrastructure.Persistence
             .HasOne(move => move.AssociatedMatch)
             .WithMany(math => math.MatchMovements)
             .HasForeignKey(move => move.AssociatedMatchId)
+            .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
 
             // Relacionamento Move → Player 
@@ -66,8 +69,12 @@ namespace server_tic_tac_toe.Infrastructure.Persistence
             .HasOne(move => move.ResponsiblePlayer)
             .WithMany(player => player.PlayerMovements)
             .HasForeignKey(move => move.ResponsiblePlayerId)
+            .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
             
+            modelBuilder.Entity<Move>()
+                .Property(m => m.TypeOfPlay)
+                .HasConversion(new EnumToStringConverter<TypePlay>());
             
 
 
