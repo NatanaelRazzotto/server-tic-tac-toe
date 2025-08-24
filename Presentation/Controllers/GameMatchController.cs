@@ -10,10 +10,10 @@ namespace server_tic_tac_toe.Controllers;
 [Route("api/gamematch")]
 public class GameMatchController : ControllerBase
 {
-    private readonly CreateGameMatch _createGameMatch;
+    private readonly CreateInitialGameMatch _createGameMatch;
     private readonly GameMatchService _gameMatchService;
 
-    public GameMatchController(CreateGameMatch createMatch, GameMatchService gameMatchService)
+    public GameMatchController(CreateInitialGameMatch createMatch, GameMatchService gameMatchService)
     {
         _createGameMatch = createMatch;
           _gameMatchService = gameMatchService;

@@ -7,12 +7,12 @@ namespace server_tic_tac_toe.Application.Services
     public class GameMatchService
     {
         private readonly IGameMatchRepository _gameMatchRepository;
-           private readonly UserService _userService;
 
-        public GameMatchService(IGameMatchRepository gameMatchRepository, UserService userService)
+
+        public GameMatchService(IGameMatchRepository gameMatchRepository)
         {
             _gameMatchRepository = gameMatchRepository;
-            _userService = userService;
+
         }
 
         public async Task<IEnumerable<GameMatch>> GetAllAsync()
@@ -22,17 +22,9 @@ namespace server_tic_tac_toe.Application.Services
             return users;
         }
 
-        public async Task<Guid> CreateAsync(CreateGameMatchDto dto)
+        public async Task<Guid> CreateAsync(User firstPlayer, User secondPlayer)
         {
-
-             // Buscar usuários
-            var firstPlayer = await _userService.GetByIdAsync(dto.firstPlayerId)
-                ?? throw new DomainException("Primeiro jogador não encontrado.");
-
-            var secondPlayer = await _userService.GetByIdAsync(dto.secondPlayerId)
-                ?? throw new DomainException("Segundo jogador não encontrado.");
-
-            // Aqui poderia ter outras regras, ex.: jogadores não podem ser iguais
+            // Aqui só regras de negócio da entidade
             if (firstPlayer.Id == secondPlayer.Id)
                 throw new DomainException("Jogadores não podem ser iguais.");
 
@@ -42,6 +34,18 @@ namespace server_tic_tac_toe.Application.Services
             GameMatch returnGameMatch = await _gameMatchRepository.AddAsync(gameMatch);
 
             return returnGameMatch.Id;
+        }
+        
+         // Validação de regras entre agregados
+        public async Task ValidatePlayersAvailability(User firstPlayer, User secondPlayer)
+        {
+            var activeMatches = await _gameMatchRepository.GetAllAsync();
+
+            if (activeMatches.Any(m => m.FirstPlayer.Id == firstPlayer.Id || m.SecondPlayer.Id == firstPlayer.Id))
+                throw new DomainException("Primeiro jogador já está em uma partida ativa.");
+
+            if (activeMatches.Any(m => m.FirstPlayer.Id == secondPlayer.Id || m.SecondPlayer.Id == secondPlayer.Id))
+                throw new DomainException("Segundo jogador já está em uma partida ativa.");
         }
     }
 

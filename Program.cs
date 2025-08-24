@@ -48,7 +48,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<GameMatchService>();
 
 // UseCases
-builder.Services.AddScoped<CreateGameMatch>();
+builder.Services.AddScoped<CreateInitialGameMatch>();
 builder.Services.AddScoped<CreateUser>();
 builder.Services.AddScoped<UpdateUser>();
 
