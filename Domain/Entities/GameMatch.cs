@@ -16,13 +16,15 @@ namespace server_tic_tac_toe.Domain.Entities
 
         public MatchStatus Status { get; private set; } = MatchStatus.InProgress;
 
-        public DateTime Closing { get; private set; }
+        public DateTime? Closing { get; private set; }
+
+        public DateTime Open { get; private set; }
 
         public ICollection<Move> MatchMovements { get; set; } = new List<Move>();
-        
+
         public GameMatch()
         {
-            
+
         }
 
         public GameMatch(User firstPlayer, User secondPlayer)
@@ -32,6 +34,18 @@ namespace server_tic_tac_toe.Domain.Entities
             FirstPlayerId = firstPlayer.Id;
             SecondPlayerId = secondPlayer.Id;
             Status = MatchStatus.InProgress;
+
+            Open = DateTime.UtcNow;   // inicializa abertura
+            Closing = null;
+        }
+        
+        public void CloseGame(MatchStatus finalStatus)
+        {
+            if (Status != MatchStatus.InProgress)
+                throw new InvalidOperationException("Jogo já está finalizado.");
+
+            Status = finalStatus;
+            Closing = DateTime.UtcNow;
         }
         
 

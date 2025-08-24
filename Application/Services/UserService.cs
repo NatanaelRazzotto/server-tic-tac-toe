@@ -28,7 +28,7 @@ namespace server_tic_tac_toe.Application.Services
             return users;
         }
 
-        public async Task<int> CreateAsync(CreateUserDto dto)
+        public async Task<Guid> CreateAsync(CreateUserDto dto)
         {
             User? existing = await _repository.GetByEmailAsync(dto.email);
             if (existing != null)
@@ -36,10 +36,11 @@ namespace server_tic_tac_toe.Application.Services
 
             User user = new User(dto.name, dto.nickname, dto.email);
 
-            return await _repository.AddAsync(user);
+            User returnUser = await _repository.AddAsync(user);
+            return returnUser.Id;
         }
         
-        public async Task<int> UpdateAsync(Guid id, string name, string email)
+        public async Task<Guid> UpdateAsync(Guid id, string name, string email)
         {
             var user = await _repository.GetByIdAsync(id)
                     ?? throw new DomainException("Usuário não encontrado.");
@@ -47,7 +48,8 @@ namespace server_tic_tac_toe.Application.Services
             user.UpdateName(name);
             user.UpdateEmail(email);
             
-            return await _repository.UpdateAsync(user);
+            User returnUser = await _repository.UpdateAsync(user);
+            return returnUser.Id;
         }
     }
 

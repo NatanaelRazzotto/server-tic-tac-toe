@@ -47,7 +47,7 @@ public class GameMatchController : ControllerBase
     {
        try
         {           
-            int? gameMatchId = await _createGameMatch.ExecuteAsync(dto);
+            Guid? gameMatchId = await _createGameMatch.ExecuteAsync(dto);
             return Ok(new { id = gameMatchId });
         }
         catch (DomainException ex)

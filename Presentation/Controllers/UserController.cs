@@ -55,7 +55,7 @@ public class UsersController : ControllerBase
         try
         {
             Console.WriteLine($"Recebido CreateUserDto: Name={dto.name}, Nickname={dto.nickname}, Email={dto.email}");
-            int? userId = await _createUser.ExecuteAsync(dto);
+            Guid? userId = await _createUser.ExecuteAsync(dto);
             return Ok(new { id = userId });
         }
         catch (DomainException ex)

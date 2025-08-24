@@ -28,22 +28,25 @@ namespace server_tic_tac_toe.Infrastructure.Repositories
             return await _dbSet.ToListAsync();
         }
 
-       public async Task<int> AddAsync(T entity)
-        {
-            _dbSet.Add(entity);
-            return await _context.SaveChangesAsync(); 
-        }
+        public async Task<T> AddAsync(T entity)
+            {
+                _dbSet.Add(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
 
-        public async Task<int> UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
-            return await _context.SaveChangesAsync(); 
+             await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public async Task<int> DeleteAsync(T entity)
+        public async Task<T> DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
-            return await _context.SaveChangesAsync(); 
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

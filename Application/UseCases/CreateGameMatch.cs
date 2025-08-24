@@ -13,7 +13,7 @@ namespace server_tic_tac_toe.Application.UseCases
             _service = service;
         }
 
-        public async Task<int> ExecuteAsync(CreateGameMatchDto dto)
+        public async Task<Guid> ExecuteAsync(CreateGameMatchDto dto)
         {
            return await _service.CreateAsync(dto);
         }

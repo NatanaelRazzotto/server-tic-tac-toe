@@ -22,7 +22,7 @@ namespace server_tic_tac_toe.Application.Services
             return users;
         }
 
-        public async Task<int> CreateAsync(CreateGameMatchDto dto)
+        public async Task<Guid> CreateAsync(CreateGameMatchDto dto)
         {
 
              // Buscar usuários
@@ -37,9 +37,11 @@ namespace server_tic_tac_toe.Application.Services
                 throw new DomainException("Jogadores não podem ser iguais.");
 
             //Validar negocio
-            GameMatch user = new GameMatch(firstPlayer, secondPlayer);
+            GameMatch gameMatch = new GameMatch(firstPlayer, secondPlayer);
 
-            return await _gameMatchRepository.AddAsync(user);
+            GameMatch returnGameMatch = await _gameMatchRepository.AddAsync(gameMatch);
+
+            return returnGameMatch.Id;
         }
     }
 
