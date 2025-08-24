@@ -8,16 +8,21 @@ using System.Collections.Generic;
 
 namespace server_tic_tac_toe.Infrastructure.Repositories
 {
-    public class PlayerRepository : Repository<User>, IPlayerRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        public PlayerRepository(AppDbContext context) : base(context)
+        public UserRepository(AppDbContext context) : base(context)
         {
 
         }
-        
+
         public async Task<User?> GetByNameAsync(string name)
         {
             return await _context.Users.FirstOrDefaultAsync(p => p.Name == name);
+        }
+        
+        public async Task<User?> GetByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(p => p.Email == email);
         }
     }
 }

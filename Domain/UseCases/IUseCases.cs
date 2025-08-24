@@ -1,8 +1,10 @@
 namespace server_tic_tac_toe.Domain.UseCases
 {
-    public interface IUseCases<T> where T : class
+    public interface IUseCases<T,U>
+        where T : class 
+         where U : class   
     {
-        Task<T?> ExecuteAsync(string id);
+        Task<int?> ExecuteAsync(U dto);
 
     }
 }

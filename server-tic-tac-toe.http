@@ -1,6 +1,16 @@
-@server_tic_tac_toe_HostAddress = http://localhost:5180
+@server_tic_tac_toe_HostAddress = https://localhost:7157
 
-GET {{server_tic_tac_toe_HostAddress}}/weatherforecast/
+GET http://localhost:5180/api/users
 Accept: application/json
 
+### Testar POST de criação de usuário
+POST http://localhost:5180/api/users
+Content-Type: application/json
+
+{
+  "id": "123",
+  "name": "Natanael",
+  "nickname": "nata22",
+  "email": "nata84@gmail.com"
+}
 ###

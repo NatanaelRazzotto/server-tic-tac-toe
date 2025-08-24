@@ -17,6 +17,16 @@ namespace server_tic_tac_toe.Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
+            // User
+
+            modelBuilder.Entity<User>()
+                .HasIndex(user => user.Nickname)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(user => user.Email)
+                .IsUnique();
+
             // Match → Player primario
 
             modelBuilder.Entity<GameMatch>()

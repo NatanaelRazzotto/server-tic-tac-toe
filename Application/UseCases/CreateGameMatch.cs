@@ -4,7 +4,7 @@ using server_tic_tac_toe.Domain.Entities;
 
 namespace server_tic_tac_toe.Application.UseCases
 {
-    public class CreateGameMatch : IUseCases<GameMatch>
+    public class CreateGameMatch //: IUseCases<GameMatch>
     {
         private readonly GameMatchService _service;
 
