@@ -14,6 +14,13 @@ namespace server_tic_tac_toe.Application.Services
             _repository = repository;
         }
 
+        public async Task<User> GetByIdAsync(Guid id)
+        {
+
+            var user = await _repository.GetByIdAsync(id);
+            return user;
+        }
+
         public async Task<IEnumerable<User>> GetAllAsync()
         {
 

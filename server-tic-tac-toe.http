@@ -13,4 +13,19 @@ Content-Type: application/json
   "nickname": "nata22",
   "email": "nata84@gmail.com"
 }
+
+
+
+### Testar POST de criação de partida
+POST http://localhost:5180/api/gamematch
+Content-Type: application/json
+
+{
+  "id": "123",
+  "firstPlayerId": "c602d89f-84f9-4f05-a55b-92bd4fbfb049",
+  "secondPlayerId": "cb7c0597-fbf9-4afd-95ac-dad5404e2ecb",
+  "status": "InProgress"}
+
+GET http://localhost:5180/api/gamematch
+Accept: application/json
 ###

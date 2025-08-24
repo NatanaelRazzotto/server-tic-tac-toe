@@ -5,6 +5,7 @@ using server_tic_tac_toe.Domain.Repositories;
 using server_tic_tac_toe.Infrastructure.Repositories;
 using server_tic_tac_toe.Application.Services;
 using server_tic_tac_toe.Application.UseCases;
+using System.Text.Json.Serialization;
 
 // Carrega o arquivo .env
 Env.Load();
@@ -38,14 +39,26 @@ builder.Services.AddCors(options =>
 
 // ===== Aqui registramos os repositórios e serviços =====
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IGameMatchRepository, GameMatchRepository>();
+
+
+
+//service
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<GameMatchService>();
 
 // UseCases
+builder.Services.AddScoped<CreateGameMatch>();
 builder.Services.AddScoped<CreateUser>();
 builder.Services.AddScoped<UpdateUser>();
 
 // Controllers + Swagger
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

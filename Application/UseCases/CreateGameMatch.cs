@@ -8,9 +8,14 @@ namespace server_tic_tac_toe.Application.UseCases
     {
         private readonly GameMatchService _service;
 
-        public Task<GameMatch> ExecuteAsync(string id)
+          public CreateGameMatch(GameMatchService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<int> ExecuteAsync(CreateGameMatchDto dto)
+        {
+           return await _service.CreateAsync(dto);
         }
     }
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace server_tic_tac_toe.Infrastructure.Repositories
 {
-    public class GameMatchRepository : Repository<GameMatch>
+    public class GameMatchRepository : Repository<GameMatch>, IGameMatchRepository
     {
 
         public GameMatchRepository(AppDbContext context) : base(context)
@@ -16,6 +16,14 @@ namespace server_tic_tac_toe.Infrastructure.Repositories
 
         }
 
+       public override async Task<IEnumerable<GameMatch>> GetAllAsync()
+    {
+        return await _dbSet
+            .Include(m => m.FirstPlayer)
+            .Include(m => m.SecondPlayer)
+            .Include(m => m.MatchMovements)
+            .ToListAsync();
+    }
         
     }
 

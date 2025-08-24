@@ -20,12 +20,12 @@ namespace server_tic_tac_toe.Domain.Entities
 
         public ICollection<Move> MatchMovements { get; set; } = new List<Move>();
         
-        private GameMatch()
+        public GameMatch()
         {
             
         }
 
-        private GameMatch(User firstPlayer, User secondPlayer)
+        public GameMatch(User firstPlayer, User secondPlayer)
         {
             FirstPlayer = firstPlayer ?? throw new ArgumentNullException(nameof(firstPlayer));
             SecondPlayer = secondPlayer ?? throw new ArgumentNullException(nameof(secondPlayer));

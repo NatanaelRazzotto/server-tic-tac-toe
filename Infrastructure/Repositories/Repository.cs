@@ -18,12 +18,12 @@ namespace server_tic_tac_toe.Infrastructure.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<T?> GetByIdAsync(Guid id)
+        public  async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
