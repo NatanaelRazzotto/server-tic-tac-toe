@@ -1,4 +1,5 @@
 using server_tic_tac_toe.Domain.Entities;
+using server_tic_tac_toe.Domain.Enums;
 using server_tic_tac_toe.Domain.Exceptions;
 using server_tic_tac_toe.Domain.Repositories;
 
@@ -41,6 +42,16 @@ namespace server_tic_tac_toe.Application.Services
 
             GameMatch returnGameMatch = await _gameMatchRepository.AddAsync(gameMatch);
 
+            return returnGameMatch.Id;
+        }
+
+        public async Task<Guid> EndMatchAsync(Guid matchId, MatchStatus matchStatus ,User? firstPlayer, User? secondPlayer)
+        {
+            var match = await _gameMatchRepository.GetByIdAsync(matchId)
+                ?? throw new DomainException("Partida não encontrada.");
+
+            match.EndMatch( matchStatus ,firstPlayer, secondPlayer);
+            GameMatch returnGameMatch = await _gameMatchRepository.UpdateAsync(match);
             return returnGameMatch.Id;
         }
         

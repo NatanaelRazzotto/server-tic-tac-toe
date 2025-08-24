@@ -19,14 +19,14 @@ namespace server_tic_tac_toe.Application.UseCases
         public async Task<Guid> ExecuteAsync(CreateGameMatchDto dto)
         {
 
-          // 1️⃣ Buscar usuários
+          // Buscar usuários
             var firstPlayer = await _userService.GetByIdAsync(dto.firstPlayerId)
                 ?? throw new DomainException("Primeiro jogador não encontrado.");
 
             var secondPlayer = await _userService.GetByIdAsync(dto.secondPlayerId)
                 ?? throw new DomainException("Segundo jogador não encontrado.");
 
-            // 2️⃣ Validar disponibilidade dos jogadores
+            // Validar disponibilidade dos jogadores
             //await _gameMatchservice.ValidatePlayersAvailability(firstPlayer, secondPlayer);
 
             return await _gameMatchservice.CreateAsync(firstPlayer, secondPlayer);

@@ -54,6 +54,7 @@ builder.Services.AddScoped<MoveService>();
 // UseCases
 builder.Services.AddScoped<CreateInitialGameMatch>();
 builder.Services.AddScoped<CreateMoveForGameMatch>();
+builder.Services.AddScoped<EndGameMatch>();
 builder.Services.AddScoped<CreateUser>();
 builder.Services.AddScoped<UpdateUser>();
 

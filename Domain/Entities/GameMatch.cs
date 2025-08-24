@@ -1,4 +1,5 @@
 using server_tic_tac_toe.Domain.Enums;
+using server_tic_tac_toe.Domain.Exceptions;
 
 namespace server_tic_tac_toe.Domain.Entities
 {
@@ -39,6 +40,30 @@ namespace server_tic_tac_toe.Domain.Entities
             Closing = null;
         }
 
+        // 👇 método de negócio para encerrar partida
+        public void EndMatch( MatchStatus matchStatus ,User? firstPlayerId, User? secondPlayerId)
+        {
+            if (Status != MatchStatus.InProgress)
+                throw new DomainException("A partida já foi encerrada.");   
+
+             if (matchStatus == MatchStatus.InProgress)
+                throw new DomainException("A partida deve ter um resultado.");          
+
+            if (firstPlayerId == null || secondPlayerId == null)
+                throw new DomainException("Um dos participantes nao foi informado");
+
+            if (IsPlayerInMatch(firstPlayerId) == false)
+                  throw new DomainException("Player 1 não pertence à partida.");
+
+            if (IsPlayerInMatch(secondPlayerId)  == false)
+                  throw new DomainException("Player 2 não pertence à partida.");
+
+            
+            Status = matchStatus;
+            Closing = DateTime.UtcNow;   
+
+        }
+
         public void CloseGame(MatchStatus finalStatus)
         {
             if (Status != MatchStatus.InProgress)
@@ -47,11 +72,21 @@ namespace server_tic_tac_toe.Domain.Entities
             Status = finalStatus;
             Closing = DateTime.UtcNow;
         }
-        
+
         public bool IsPlayerInMatch(User player)
         {
             return FirstPlayer.Id == player.Id || SecondPlayer.Id == player.Id;
         }
+        public MatchStatus WhoIsThePlayer(User player)
+        {
+            if (FirstPlayer.Id == player.Id)
+                return MatchStatus.FirstPlayerWon;
+            else if (SecondPlayer.Id == player.Id)
+                return MatchStatus.SecondPlayerWon;
+
+            throw new DomainException("O vencedor informado não pertence à partida.");
+        }
+
 
         public bool HasMoveAt(int row, int column)
         {

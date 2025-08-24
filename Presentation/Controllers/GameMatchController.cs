@@ -11,18 +11,20 @@ namespace server_tic_tac_toe.Controllers;
 public class GameMatchController : ControllerBase
 {
     private readonly CreateInitialGameMatch _createGameMatch;
+    private readonly EndGameMatch _endGameMatch;
     private readonly GameMatchService _gameMatchService;
 
-    public GameMatchController(CreateInitialGameMatch createMatch, GameMatchService gameMatchService)
+    public GameMatchController(CreateInitialGameMatch createMatch, GameMatchService gameMatchService,  EndGameMatch endGameMatch)
     {
+        _endGameMatch = endGameMatch; 
         _createGameMatch = createMatch;
-          _gameMatchService = gameMatchService;
+        _gameMatchService = gameMatchService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-           Console.WriteLine("ex testado");
+        Console.WriteLine("ex testado");
         try
         {
             var gameMatch = await _gameMatchService.GetAllAsync();
@@ -45,8 +47,8 @@ public class GameMatchController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateGameMatchDto dto)
     {
-       try
-        {           
+        try
+        {
             Guid? gameMatchId = await _createGameMatch.ExecuteAsync(dto);
             return Ok(new { id = gameMatchId });
         }
@@ -57,7 +59,26 @@ public class GameMatchController : ControllerBase
         }
         catch (Exception ex)
         {
-              Console.WriteLine(ex);
+            Console.WriteLine(ex);
+            return StatusCode(500, new { message = ex.Message });
+        }
+    }
+    
+      // PUT /api/users/{id}
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateGameMatchDto dto)
+    {
+        try
+        {
+            var updatedUser = await _endGameMatch.ExecuteAsync(id, dto);
+            return Ok(updatedUser);
+        }
+        catch (DomainException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
             return StatusCode(500, new { message = ex.Message });
         }
     }
