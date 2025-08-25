@@ -15,14 +15,22 @@ namespace server_tic_tac_toe.Infrastructure.Repositories
 
         }
 
-        public async Task<User?> GetByNameAsync(string name)
+        public async Task<User?> GetByEmailOrNicknameAsync(string email, string nickname, Guid excludeUserId)
         {
-            return await _context.Users.FirstOrDefaultAsync(p => p.Name == name);
+            return await _dbSet
+                .Where(u => (u.Email == email || u.Nickname == nickname) && u.Id != excludeUserId)
+                .FirstOrDefaultAsync();
         }
-        
+
         public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(p => p.Email == email);
+            return await _dbSet.FirstOrDefaultAsync(p => p.Email == email);
         }
-    }
+
+        public async Task<User?> GetByNameAsync(string name)
+        {
+            return await _dbSet.FirstOrDefaultAsync(p => p.Name == name);
+        }
+
+        }
 }

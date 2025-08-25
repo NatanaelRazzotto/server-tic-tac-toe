@@ -40,13 +40,23 @@ namespace server_tic_tac_toe.Application.Services
             return returnUser.Id;
         }
         
-        public async Task<Guid> UpdateAsync(Guid id, string name, string email)
+        public async Task<Guid> UpdateAsync(Guid userId,UpdateUserDto dto)
         {
-            var user = await _repository.GetByIdAsync(id)
+            var user = await _repository.GetByIdAsync(userId)
                     ?? throw new DomainException("Usuário não encontrado.");
 
-            user.UpdateName(name);
-            user.UpdateEmail(email);
+            var conflictUser = await _repository.GetByEmailOrNicknameAsync(dto.email, dto.nickname, userId);
+            if (conflictUser != null)
+            {
+                if (conflictUser.Email == dto.email)
+                    throw new DomainException("Já existe um usuário com este e-mail.");
+                if (conflictUser.Nickname == dto.nickname)
+                    throw new DomainException("Já existe um usuário com este nickname.");
+            }
+
+            user.UpdateName(dto.name);
+            user.UpdateEmail(dto.email);
+            user.UpdateNickname(dto.nickname);
             
             User returnUser = await _repository.UpdateAsync(user);
             return returnUser.Id;

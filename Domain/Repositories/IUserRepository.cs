@@ -7,5 +7,7 @@ namespace server_tic_tac_toe.Domain.Repositories
         Task<User?> GetByNameAsync(string name);
 
         Task<User?> GetByEmailAsync(string email);
+
+        public Task<User?> GetByEmailOrNicknameAsync(string email, string nickname, Guid excludeUserId);
     }
 }

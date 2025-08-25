@@ -88,18 +88,18 @@ public class UsersController : ControllerBase
 
     // PUT /api/users/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] CreateUserDto dto)
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserDto dto)
     {
         try
         {
-            var updatedUser = await _updateUser.ExecuteAsync( dto);
+            var updatedUser = await _updateUser.ExecuteAsync(id, dto);
             return Ok(updatedUser);
         }
         catch (DomainException ex)
         {
             return BadRequest(new { message = ex.Message });
         }
-        catch (Exception ex)
+        catch (Exception ex)    
         {
             return StatusCode(500, new { message = ex.Message });
         }
