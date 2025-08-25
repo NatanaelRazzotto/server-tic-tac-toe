@@ -28,15 +28,23 @@ var connectionString =
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+var frontendUrl = builder.Configuration["APP_WEB_CLIENT"];
+if (string.IsNullOrEmpty(frontendUrl))
+{
+    throw new InvalidOperationException("A variável FRONTEND_URL não está definida.");
+}
 // Configuração do CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy => policy
-            .AllowAnyOrigin()   // pode restringir para origem específica (ex: React Native)
+    options.AddPolicy("AllowSpecificApp", policy =>
+        policy
+            .WithOrigins(frontendUrl)
+
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+    );
 });
+
 
 // ===== Aqui registramos os repositórios e serviços =====
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -74,7 +82,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Ativa CORS
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificApp");
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -83,7 +91,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+
 
 // Não precisa de autenticação/authorization por enquanto
 // app.UseAuthentication();
