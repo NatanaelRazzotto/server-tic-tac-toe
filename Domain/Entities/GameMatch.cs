@@ -35,13 +35,12 @@ namespace server_tic_tac_toe.Domain.Entities
             FirstPlayerId = firstPlayer.Id;
             SecondPlayerId = secondPlayer.Id;
             Status = MatchStatus.InProgress;
-
             Open = DateTime.UtcNow;   // inicializa abertura
             Closing = null;
         }
 
-        // 👇 método de negócio para encerrar partida
-        public void EndMatch( MatchStatus matchStatus ,User? firstPlayerId, User? secondPlayerId)
+        // método de negócio para encerrar partida
+        public void EndMatch( MatchStatus matchStatus ,User? firstPlayer, User? secondPlayer)
         {
             if (Status != MatchStatus.InProgress)
                 throw new DomainException("A partida já foi encerrada.");   
@@ -49,13 +48,13 @@ namespace server_tic_tac_toe.Domain.Entities
              if (matchStatus == MatchStatus.InProgress)
                 throw new DomainException("A partida deve ter um resultado.");          
 
-            if (firstPlayerId == null || secondPlayerId == null)
+            if (firstPlayer == null || secondPlayer == null)
                 throw new DomainException("Um dos participantes nao foi informado");
 
-            if (IsPlayerInMatch(firstPlayerId) == false)
+            if (IsPlayerInMatch(firstPlayer) == false)
                   throw new DomainException("Player 1 não pertence à partida.");
 
-            if (IsPlayerInMatch(secondPlayerId)  == false)
+            if (IsPlayerInMatch(secondPlayer)  == false)
                   throw new DomainException("Player 2 não pertence à partida.");
 
             

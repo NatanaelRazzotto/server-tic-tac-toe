@@ -15,7 +15,7 @@ namespace server_tic_tac_toe.Application.UseCases
             _service = userService;
         }
 
-        public async Task<Guid?> ExecuteAsync(Guid userId, UpdateUserDto dto)
+        public async Task<Guid> ExecuteAsync(Guid userId, UpdateUserDto dto)
         {
             // apenas validações de entrada simples, regras de negócio ficam na entidade/service
             if (string.IsNullOrWhiteSpace(dto.name) || string.IsNullOrWhiteSpace(dto.email) || string.IsNullOrWhiteSpace(dto.nickname))

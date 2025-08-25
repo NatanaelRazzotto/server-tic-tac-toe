@@ -7,12 +7,12 @@ using server_tic_tac_toe.Domain.Exceptions;
 
 [ApiController]
 [Route("api/[controller]")]
-public class MovesController : ControllerBase
+public class MoveController : ControllerBase
 {
-    private readonly CreateMoveForGameMatch _createMove;
+    private readonly MakeMove _createMove;
     private readonly MoveService _moveService;
 
-    public MovesController(CreateMoveForGameMatch createMove, MoveService moveService)
+    public MoveController(MakeMove createMove, MoveService moveService)
     {
         _createMove = createMove;
         _moveService = moveService;

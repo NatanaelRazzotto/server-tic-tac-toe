@@ -1,17 +1,18 @@
 using server_tic_tac_toe.Application.Services;
+
 using server_tic_tac_toe.Domain.Entities;
 using server_tic_tac_toe.Domain.Enums;
 using server_tic_tac_toe.Domain.Exceptions;
 
 namespace server_tic_tac_toe.Application.UseCases
 {
-    public class CreateMoveForGameMatch
+    public class MakeMove
     {
         private readonly MoveService _moveService;
         private readonly GameMatchService _gameMatchService;
         private readonly UserService _userService;
 
-        public CreateMoveForGameMatch(
+        public MakeMove(
             MoveService moveService, 
             GameMatchService gameMatchService, 
             UserService userService)
@@ -44,8 +45,7 @@ namespace server_tic_tac_toe.Application.UseCases
                 player,
                 dto.positionColumn,
                 dto.positionRow,
-                dto.typeOfPlay
-                //dto.movementTime
+                dto.typeOfPlay   
             );
         }
     }

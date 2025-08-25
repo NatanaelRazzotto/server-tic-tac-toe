@@ -5,12 +5,12 @@ using server_tic_tac_toe.Domain.Exceptions;
 
 namespace server_tic_tac_toe.Application.UseCases
 {
-    public class EndGameMatch
+    public class FinishGameMatch
     {
         private readonly GameMatchService _gameMatchService;
         private readonly UserService _userService;
 
-        public EndGameMatch(GameMatchService gameMatchService, UserService userService)
+        public FinishGameMatch(GameMatchService gameMatchService, UserService userService)
         {
             _gameMatchService = gameMatchService;
             _userService = userService;

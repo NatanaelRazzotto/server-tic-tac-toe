@@ -7,16 +7,16 @@ namespace server_tic_tac_toe.Controllers;
 
 
 [ApiController]
-[Route("api/gamematch")]
+[Route("api/[controller]")]
 public class GameMatchController : ControllerBase
 {
-    private readonly CreateInitialGameMatch _createGameMatch;
-    private readonly EndGameMatch _endGameMatch;
+    private readonly CreateGameMatch _createGameMatch;
+    private readonly FinishGameMatch _finishGameMatch;
     private readonly GameMatchService _gameMatchService;
 
-    public GameMatchController(CreateInitialGameMatch createMatch, GameMatchService gameMatchService,  EndGameMatch endGameMatch)
+    public GameMatchController(CreateGameMatch createMatch, GameMatchService gameMatchService,  FinishGameMatch finishGameMatch)
     {
-        _endGameMatch = endGameMatch; 
+        _finishGameMatch = finishGameMatch; 
         _createGameMatch = createMatch;
         _gameMatchService = gameMatchService;
     }
@@ -24,17 +24,9 @@ public class GameMatchController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        Console.WriteLine("ex testado");
         try
         {
             var gameMatch = await _gameMatchService.GetAllAsync();
-            // var dtoList = users.Select(u => new UserDto
-            // {
-            //     id = u.Id,
-            //     name = u.Name,
-            //     nickname = u.Nickname,
-            //     email = u.Email
-            // }).ToList();
 
             return Ok(gameMatch);
         }
@@ -54,23 +46,22 @@ public class GameMatchController : ControllerBase
         }
         catch (DomainException ex)
         {
-            Console.WriteLine(ex);
+    
             return BadRequest(new { message = ex.Message });
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+           
             return StatusCode(500, new { message = ex.Message });
         }
     }
-    
-      // PUT /api/users/{id}
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateGameMatchDto dto)
+
+    [HttpPut("finish/{id}")]
+    public async Task<IActionResult> FinishMatch(Guid id, [FromBody] UpdateGameMatchDto dto)
     {
         try
         {
-            var updatedUser = await _endGameMatch.ExecuteAsync(id, dto);
+            var updatedUser = await _finishGameMatch.ExecuteAsync(id, dto);
             return Ok(updatedUser);
         }
         catch (DomainException ex)

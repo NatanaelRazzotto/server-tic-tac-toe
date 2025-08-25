@@ -6,13 +6,13 @@ using server_tic_tac_toe.Application.Services;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class UserController : ControllerBase
 {
     private readonly UserService _userService;
     private readonly CreateUser _createUser;
     private readonly UpdateUser _updateUser;
 
-    public UsersController(
+    public UserController(
         CreateUser createUser,
         UserService userService,
         UpdateUser updateUser)
@@ -25,7 +25,6 @@ public class UsersController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-           Console.WriteLine("ex testado");
         try
         {
             var users = await _userService.GetAllAsync();
@@ -54,37 +53,21 @@ public class UsersController : ControllerBase
         
         try
         {
-            Console.WriteLine($"Recebido CreateUserDto: Name={dto.name}, Nickname={dto.nickname}, Email={dto.email}");
+         
             Guid? userId = await _createUser.ExecuteAsync(dto);
             return Ok(new { id = userId });
         }
         catch (DomainException ex)
         {
-            Console.WriteLine(ex);
+  
             return BadRequest(new { message = ex.Message });
         }
         catch (Exception ex)
         {
-              Console.WriteLine(ex);
+
             return StatusCode(500, new { message = ex.Message });
         }
     }
-
-    // // GET /api/users/{id}
-    // [HttpGet("{id}")]
-    // public async Task<IActionResult> GetById(Guid id)
-    // {
-    //     try
-    //     {
-    //         var user = await _getUserById.ExecuteAsync(id);
-    //         if (user == null) return NotFound();
-    //         return Ok(user);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return StatusCode(500, new { message = ex.Message });
-    //     }
-    // }
 
     // PUT /api/users/{id}
     [HttpPut("{id}")]
